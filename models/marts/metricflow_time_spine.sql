@@ -1,23 +1,20 @@
-{{
-    config(
-        materialized = 'table',
-    )
-}}
+-- metricflow_time_spine.sql
+with
 
-with days as (
-    {{
-        dbt_utils.date_spine(
-            'day',
-            "to_date('01/01/2000','mm/dd/yyyy')",
-            "to_date('01/01/2027','mm/dd/yyyy')"
-        )
-    }}
+days as (
+
+    --for BQ adapters use "DATE('01/01/2000','mm/dd/yyyy')"
+    {{ dbt_date.get_base_dates(n_dateparts=365*10, datepart="day") }}
+
 ),
 
-final as (
+cast_to_date as (
+
     select cast(date_day as date) as date_day
+
     from days
+
 )
 
-select * from final
+select * from cast_to_date
 
