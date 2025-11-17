@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: order_line_items
-    description: Order line items fact table with order details and customer dimensions
+    description: Order line items fact table with order details
     columns:
       - name: order_key
         description: Order identifier
@@ -24,12 +24,6 @@ models:
         description: Price after discount
       - name: final_price
         description: Final price after discount and tax
-      - name: nation_name
-        description: Customer nation (from dim_customers)
-      - name: region_name
-        description: Customer region (from dim_customers)
-      - name: market_segment
-        description: Customer market segment (from dim_customers)
 
 semantic_models:
   - name: order_line_items
@@ -57,12 +51,6 @@ semantic_models:
       - name: order_status
         type: categorical
       - name: ship_mode
-        type: categorical
-      - name: region_name
-        type: categorical
-      - name: nation_name
-        type: categorical
-      - name: market_segment
         type: categorical
     
     measures:
