@@ -1,0 +1,91 @@
+version: 2
+
+models:
+  - name: order_line_items
+    description: Order line items fact table
+
+semantic_models:
+  - name: order_line_items
+    description: Order line items for semantic layer
+    model: ref('order_line_items')
+    
+    entities:
+      - name: order_line_item
+        type: primary
+        expr: order_key || '_' || line_number
+      - name: order
+        type: foreign
+        expr: order_key
+      - name: customer
+        type: foreign
+        expr: customer_key
+    
+    dimensions:
+      - name: order_date
+        type: time
+        type_params:
+          time_granularity: day
+        expr: order_date
+        is_primary: true
+      - name: order_status
+        type: categorical
+      - name: order_priority
+        type: categorical
+      - name: clerk
+        type: categorical
+      - name: return_flag
+        type: categorical
+      - name: line_status
+        type: categorical
+      - name: ship_mode
+        type: categorical
+      - name: ship_date
+        type: time
+        type_params:
+          time_granularity: day
+        expr: ship_date
+      - name: commit_date
+        type: time
+        type_params:
+          time_granularity: day
+        expr: commit_date
+      - name: receipt_date
+        type: time
+        type_params:
+          time_granularity: day
+        expr: receipt_date
+    
+    measures:
+      - name: total_orders
+        description: Count of distinct orders
+        agg: count_distinct
+        expr: order_key
+      - name: total_line_items
+        description: Count of line items
+        agg: count
+      - name: total_quantity
+        description: Sum of quantity ordered
+        agg: sum
+        expr: quantity
+      - name: total_revenue
+        description: Sum of final price (after discount and tax)
+        agg: sum
+        expr: final_price
+      - name: total_discounted_revenue
+        description: Sum of discounted price (before tax)
+        agg: sum
+        expr: discounted_price
+      - name: total_extended_price
+        description: Sum of extended price (before discount)
+        agg: sum
+        expr: extended_price
+      - name: average_quantity
+        description: Average quantity per line item
+        agg: average
+        expr: quantity
+      - name: average_discount
+        description: Average discount rate
+        agg: average
+        expr: discount
+
+

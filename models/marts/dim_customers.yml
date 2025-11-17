@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: Customer dimension with geographic information
+
+semantic_models:
+  - name: customers
+    description: Customer dimension for semantic layer
+    model: ref('dim_customers')
+    
+    entities:
+      - name: customer
+        type: primary
+        expr: customer_key
+      - name: nation
+        type: foreign
+        expr: nation_key
+      - name: region
+        type: foreign
+        expr: region_key
+    
+    dimensions:
+      - name: customer_name
+        type: categorical
+      - name: customer_address
+        type: categorical
+      - name: customer_phone
+        type: categorical
+      - name: market_segment
+        type: categorical
+      - name: nation_name
+        type: categorical
+      - name: region_name
+        type: categorical
+    
+    measures:
+      - name: total_customers
+        description: Count of customers
+        agg: count
+        expr: customer_key
+      - name: total_account_balance
+        description: Sum of all customer account balances
+        agg: sum
+        expr: account_balance
+      - name: average_account_balance
+        description: Average customer account balance
+        agg: average
+        expr: account_balance
+
+

@@ -1,33 +1,17 @@
-with
-
-source as (
-
-    select * from {{ source('ecom', 'raw_orders') }}
-
-),
-
-renamed as (
-
-    select
-
-        ----------  ids
-        id as order_id,
-        store_id as location_id,
-        customer as customer_id,
-
-        ---------- numerics
-        subtotal as subtotal_cents,
-        tax_paid as tax_paid_cents,
-        order_total as order_total_cents,
-        {{ cents_to_dollars('subtotal') }} as subtotal,
-        {{ cents_to_dollars('tax_paid') }} as tax_paid,
-        {{ cents_to_dollars('order_total') }} as order_total,
-
-        ---------- timestamps
-        {{ dbt.date_trunc('day','ordered_at') }} as ordered_at
-
-    from source
-
+with source as (
+    select * from {{ source('tpch', 'orders') }}
 )
 
-select * from renamed
+select
+    o_orderkey as order_key,
+    o_custkey as customer_key,
+    o_orderstatus as order_status,
+    o_totalprice as total_price,
+    o_orderdate as order_date,
+    o_orderpriority as order_priority,
+    o_clerk as clerk,
+    o_shippriority as ship_priority,
+    o_comment as order_comment
+from source
+
+

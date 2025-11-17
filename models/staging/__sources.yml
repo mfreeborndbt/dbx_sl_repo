@@ -1,23 +1,18 @@
 version: 2
 
 sources:
-  - name: ecom
-    schema: raw
-    description: E-commerce data for the Jaffle Shop
-    freshness:
-      warn_after: {count: 365, period: day}
-      error_after: {count: 365, period: day}
+  - name: tpch
+    database: samples
+    schema: tpch
+    description: TPC-H benchmark data from Databricks samples
     tables:
-      - name: raw_customers
-        description: One record per person who has purchased one or more items
-      - name: raw_orders
-        description: One record per order (consisting of one or more order items)
-        loaded_at_field: ordered_at
-      - name: raw_items
-        description: Items included in an order
-      - name: raw_stores
-        loaded_at_field: opened_at
-      - name: raw_products
-        description: One record per SKU for items sold in stores
-      - name: raw_supplies
-        description: One record per supply per SKU of items sold in stores
+      - name: region
+        description: Geographic regions
+      - name: nation
+        description: Nations within regions
+      - name: customer
+        description: Customer information
+      - name: orders
+        description: Customer orders
+      - name: lineitem
+        description: Line items for each order

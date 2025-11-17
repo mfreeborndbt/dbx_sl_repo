@@ -1,0 +1,77 @@
+version: 2
+
+metrics:
+  # Customer metrics
+  - name: customer_count
+    description: Total number of customers
+    type: simple
+    label: Customer Count
+    type_params:
+      measure: total_customers
+  
+  - name: total_customer_balance
+    description: Total account balance across all customers
+    type: simple
+    label: Total Customer Account Balance
+    type_params:
+      measure: total_account_balance
+  
+  - name: avg_customer_balance
+    description: Average account balance per customer
+    type: simple
+    label: Average Customer Balance
+    type_params:
+      measure: average_account_balance
+  
+  # Order and revenue metrics
+  - name: order_count
+    description: Total number of orders
+    type: simple
+    label: Order Count
+    type_params:
+      measure: total_orders
+  
+  - name: line_item_count
+    description: Total number of line items
+    type: simple
+    label: Line Item Count
+    type_params:
+      measure: total_line_items
+  
+  - name: total_revenue
+    description: Total revenue (final price including discounts and tax)
+    type: simple
+    label: Total Revenue
+    type_params:
+      measure: total_revenue
+  
+  - name: gross_revenue
+    description: Gross revenue before discounts
+    type: simple
+    label: Gross Revenue
+    type_params:
+      measure: total_extended_price
+  
+  - name: total_quantity_sold
+    description: Total quantity of items sold
+    type: simple
+    label: Total Quantity Sold
+    type_params:
+      measure: total_quantity
+  
+  - name: avg_order_value
+    description: Average revenue per order
+    type: ratio
+    label: Average Order Value
+    type_params:
+      numerator: total_revenue
+      denominator: total_orders
+  
+  - name: avg_discount_rate
+    description: Average discount rate applied
+    type: simple
+    label: Average Discount Rate
+    type_params:
+      measure: average_discount
+
+

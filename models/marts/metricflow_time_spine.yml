@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: metricflow_time_spine
+    description: Date spine for MetricFlow semantic layer
+    config:
+      materialized: table
+
