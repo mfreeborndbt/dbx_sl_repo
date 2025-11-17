@@ -4,6 +4,10 @@ with orders as (
 
 lineitems as (
     select * from {{ ref('stg_lineitem') }}
+),
+
+customers as (
+    select * from {{ ref('dim_customers') }}
 )
 
 select
@@ -29,8 +33,12 @@ select
     lineitems.commit_date,
     lineitems.receipt_date,
     lineitems.ship_instruct,
-    lineitems.ship_mode
+    lineitems.ship_mode,
+    customers.nation_name,
+    customers.region_name,
+    customers.market_segment
 from lineitems
 left join orders on lineitems.order_key = orders.order_key
+left join customers on orders.customer_key = customers.customer_key
 
 
