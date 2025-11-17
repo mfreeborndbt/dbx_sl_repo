@@ -45,18 +45,4 @@ semantic_models:
         type: categorical
       - name: region_name
         type: categorical
-    
-    measures:
-      - name: customer_count
-        description: Count of customers
-        agg: count
-        expr: customer_key
-      - name: total_account_balance
-        description: Sum of all customer account balances
-        agg: sum
-        expr: account_balance
-      - name: avg_account_balance
-        description: Average customer account balance
-        agg: average
-        expr: account_balance
 

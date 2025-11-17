@@ -58,6 +58,10 @@ semantic_models:
         description: Count of distinct orders
         agg: count_distinct
         expr: order_key
+      - name: customer_count
+        description: Count of distinct customers
+        agg: count_distinct
+        expr: customer_key
       - name: line_item_count
         description: Count of line items
         agg: count
