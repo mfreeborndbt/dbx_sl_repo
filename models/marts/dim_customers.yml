@@ -20,3 +20,43 @@ models:
       - name: account_balance
         description: Customer account balance
 
+semantic_models:
+  - name: customers
+    description: Customer dimension for semantic layer
+    model: ref('dim_customers')
+    
+    entities:
+      - name: customer
+        type: primary
+        expr: customer_key
+      - name: nation
+        type: foreign
+        expr: nation_key
+      - name: region
+        type: foreign
+        expr: region_key
+    
+    dimensions:
+      - name: customer_name
+        type: categorical
+      - name: market_segment
+        type: categorical
+      - name: nation_name
+        type: categorical
+      - name: region_name
+        type: categorical
+    
+    measures:
+      - name: customer_count
+        description: Count of customers
+        agg: count
+        expr: customer_key
+      - name: total_account_balance
+        description: Sum of all customer account balances
+        agg: sum
+        expr: account_balance
+      - name: avg_account_balance
+        description: Average customer account balance
+        agg: average
+        expr: account_balance
+

@@ -25,3 +25,57 @@ models:
       - name: final_price
         description: Final price after discount and tax
 
+semantic_models:
+  - name: order_line_items
+    description: Order line items for semantic layer
+    model: ref('order_line_items')
+    defaults:
+      agg_time_dimension: order_date
+    
+    entities:
+      - name: order_line_item
+        type: primary
+        expr: order_key || '_' || line_number
+      - name: order
+        type: foreign
+        expr: order_key
+      - name: customer
+        type: foreign
+        expr: customer_key
+    
+    dimensions:
+      - name: order_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: order_status
+        type: categorical
+      - name: ship_mode
+        type: categorical
+    
+    measures:
+      - name: order_count
+        description: Count of distinct orders
+        agg: count_distinct
+        expr: order_key
+      - name: line_item_count
+        description: Count of line items
+        agg: count
+        expr: 1
+      - name: total_quantity
+        description: Sum of quantity ordered
+        agg: sum
+        expr: quantity
+      - name: total_revenue
+        description: Sum of final price
+        agg: sum
+        expr: final_price
+      - name: total_extended_price
+        description: Sum of extended price
+        agg: sum
+        expr: extended_price
+      - name: avg_discount
+        description: Average discount rate
+        agg: average
+        expr: discount
+

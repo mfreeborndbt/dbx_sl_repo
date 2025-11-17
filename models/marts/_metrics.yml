@@ -1,0 +1,33 @@
+version: 2
+
+metrics:
+  # Revenue metrics
+  - name: total_revenue
+    description: Total revenue from all orders
+    type: simple
+    label: Total Revenue
+    type_params:
+      measure: total_revenue
+  
+  - name: total_orders
+    description: Total number of orders
+    type: simple
+    label: Total Orders
+    type_params:
+      measure: order_count
+  
+  - name: total_quantity_sold
+    description: Total quantity of items sold
+    type: simple
+    label: Total Quantity Sold
+    type_params:
+      measure: total_quantity
+  
+  # Customer metrics
+  - name: total_customers
+    description: Total number of customers
+    type: simple
+    label: Total Customers
+    type_params:
+      measure: customer_count
+
