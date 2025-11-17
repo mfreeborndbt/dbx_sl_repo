@@ -61,11 +61,13 @@ metrics:
   
   - name: avg_order_value
     description: Average revenue per order
-    type: ratio
+    type: derived
     label: Average Order Value
     type_params:
-      numerator: total_revenue
-      denominator: total_orders
+      expr: total_revenue / order_count
+      metrics:
+        - total_revenue
+        - order_count
   
   - name: avg_discount_rate
     description: Average discount rate applied
