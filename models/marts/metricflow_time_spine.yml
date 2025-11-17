@@ -5,4 +5,8 @@ models:
     description: Date spine for MetricFlow semantic layer
     config:
       materialized: table
+    columns:
+      - name: date_day
+        description: The date column for the time spine
+        granularity: day
 

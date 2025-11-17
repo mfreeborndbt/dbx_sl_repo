@@ -64,6 +64,7 @@ semantic_models:
       - name: total_line_items
         description: Count of line items
         agg: count
+        expr: 1
       - name: total_quantity
         description: Sum of quantity ordered
         agg: sum

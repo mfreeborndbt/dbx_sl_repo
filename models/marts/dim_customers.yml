@@ -8,6 +8,8 @@ semantic_models:
   - name: customers
     description: Customer dimension for semantic layer
     model: ref('dim_customers')
+    defaults:
+      agg_time_dimension: null
     
     entities:
       - name: customer
@@ -39,6 +41,7 @@ semantic_models:
         description: Count of customers
         agg: count
         expr: customer_key
+        create_metric: true
       - name: total_account_balance
         description: Sum of all customer account balances
         agg: sum
