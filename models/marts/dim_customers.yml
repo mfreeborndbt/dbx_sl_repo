@@ -2,53 +2,21 @@ version: 2
 
 models:
   - name: dim_customers
-    description: Customer dimension with geographic information
-
-semantic_models:
-  - name: customers
-    description: Customer dimension for semantic layer
-    model: ref('dim_customers')
-    defaults:
-      agg_time_dimension: null
-    
-    entities:
-      - name: customer
-        type: primary
-        expr: customer_key
-      - name: nation
-        type: foreign
-        expr: nation_key
-      - name: region
-        type: foreign
-        expr: region_key
-    
-    dimensions:
+    description: Customer dimension with geographic information (nation and region)
+    columns:
+      - name: customer_key
+        description: Primary key for customers
+        tests:
+          - unique
+          - not_null
       - name: customer_name
-        type: categorical
-      - name: customer_address
-        type: categorical
-      - name: customer_phone
-        type: categorical
-      - name: market_segment
-        type: categorical
+        description: Customer name
       - name: nation_name
-        type: categorical
+        description: Nation where customer is located
       - name: region_name
-        type: categorical
-    
-    measures:
-      - name: total_customers
-        description: Count of customers
-        agg: count
-        expr: customer_key
-        create_metric: true
-      - name: total_account_balance
-        description: Sum of all customer account balances
-        agg: sum
-        expr: account_balance
-      - name: average_account_balance
-        description: Average customer account balance
-        agg: average
-        expr: account_balance
-
+        description: Geographic region
+      - name: market_segment
+        description: Customer market segment
+      - name: account_balance
+        description: Customer account balance
 

@@ -2,92 +2,26 @@ version: 2
 
 models:
   - name: order_line_items
-    description: Order line items fact table
-
-semantic_models:
-  - name: order_line_items
-    description: Order line items for semantic layer
-    model: ref('order_line_items')
-    defaults:
-      agg_time_dimension: order_date
-    
-    entities:
-      - name: order_line_item
-        type: primary
-        expr: order_key || '_' || line_number
-      - name: order
-        type: foreign
-        expr: order_key
-      - name: customer
-        type: foreign
-        expr: customer_key
-    
-    dimensions:
+    description: Order line items fact table with order details
+    columns:
+      - name: order_key
+        description: Order identifier
+      - name: line_number
+        description: Line item number within order
+      - name: customer_key
+        description: Foreign key to customer
       - name: order_date
-        type: time
-        type_params:
-          time_granularity: day
-        expr: order_date
+        description: Date order was placed
       - name: order_status
-        type: categorical
-      - name: order_priority
-        type: categorical
-      - name: clerk
-        type: categorical
-      - name: return_flag
-        type: categorical
-      - name: line_status
-        type: categorical
-      - name: ship_mode
-        type: categorical
-      - name: ship_date
-        type: time
-        type_params:
-          time_granularity: day
-        expr: ship_date
-      - name: commit_date
-        type: time
-        type_params:
-          time_granularity: day
-        expr: commit_date
-      - name: receipt_date
-        type: time
-        type_params:
-          time_granularity: day
-        expr: receipt_date
-    
-    measures:
-      - name: total_orders
-        description: Count of distinct orders
-        agg: count_distinct
-        expr: order_key
-      - name: total_line_items
-        description: Count of line items
-        agg: count
-        expr: 1
-      - name: total_quantity
-        description: Sum of quantity ordered
-        agg: sum
-        expr: quantity
-      - name: total_revenue
-        description: Sum of final price (after discount and tax)
-        agg: sum
-        expr: final_price
-      - name: total_discounted_revenue
-        description: Sum of discounted price (before tax)
-        agg: sum
-        expr: discounted_price
-      - name: total_extended_price
-        description: Sum of extended price (before discount)
-        agg: sum
-        expr: extended_price
-      - name: average_quantity
-        description: Average quantity per line item
-        agg: average
-        expr: quantity
-      - name: average_discount
-        description: Average discount rate
-        agg: average
-        expr: discount
-
+        description: Status of the order
+      - name: quantity
+        description: Quantity ordered
+      - name: extended_price
+        description: Extended price before discount
+      - name: discount
+        description: Discount amount
+      - name: discounted_price
+        description: Price after discount
+      - name: final_price
+        description: Final price after discount and tax
 
