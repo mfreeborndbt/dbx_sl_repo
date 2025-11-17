@@ -29,12 +29,6 @@ semantic_models:
       - name: customer
         type: primary
         expr: customer_key
-      - name: nation
-        type: foreign
-        expr: nation_key
-      - name: region
-        type: foreign
-        expr: region_key
     
     dimensions:
       - name: customer_name
