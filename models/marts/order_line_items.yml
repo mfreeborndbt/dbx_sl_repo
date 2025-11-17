@@ -8,6 +8,8 @@ semantic_models:
   - name: order_line_items
     description: Order line items for semantic layer
     model: ref('order_line_items')
+    defaults:
+      agg_time_dimension: order_date
     
     entities:
       - name: order_line_item
@@ -26,7 +28,6 @@ semantic_models:
         type_params:
           time_granularity: day
         expr: order_date
-        is_primary: true
       - name: order_status
         type: categorical
       - name: order_priority
